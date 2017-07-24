@@ -18,8 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 #include "std.h"
 #include "conv.h"
 #include "maxfilter.h"
+
 #ifdef __CYGWIN__
-  #include "nlopt_qsort_r.h"
+# include "glibc_qsort_r.h"
 #endif
 
 // return size of atomic patches
@@ -440,8 +441,6 @@ int_image* find_optimal_matchings( matching_pyramid_t& mp, const dm_params_t* pa
     for(int i=0; i<maxima->ty; i++) order.pixels[i] = i;
     #ifdef __APPLE__
     qsort_r(order.pixels, maxima->ty, sizeof(int), maxima->pixels, arg_sort_maxima);
-    #elif defined(__CYGWIN__)
-    nlopt_qsort_r(order.pixels, maxima->ty, sizeof(int), arg_sort_maxima, maxima->pixels);
     #else
     qsort_r(order.pixels, maxima->ty, sizeof(int), arg_sort_maxima, maxima->pixels);
     #endif

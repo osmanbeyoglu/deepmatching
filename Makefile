@@ -12,11 +12,11 @@ endif
 LAPACKCFLAGS=-Dinteger=int $(BLAS_THREADING)
 STATICLAPACKLDFLAGS=-fPIC -Wall -g -fopenmp -static -static-libstdc++ /home/lear/douze/tmp/jpeg-6b/libjpeg.a /usr/lib64/libpng.a /usr/lib64/libz.a /usr/lib64/libblas.a /usr/lib/gcc/x86_64-redhat-linux/4.9.2/libgfortran.a /usr/lib/gcc/x86_64-redhat-linux/4.9.2/libquadmath.a # statically linked version
 
-CFLAGS= -fPIC -Wall -g -std=c++11 $(LAPACKCFLAGS) -fopenmp -DUSE_OPENMP -O3 -DM_PI=3.14159265358979323846
+CFLAGS += -fPIC -Wall -g -std=c++11 $(LAPACKCFLAGS) -fopenmp -DUSE_OPENMP -O0 -DM_PI=3.14159265358979323846
 LDFLAGS=-fPIC -Wall -g -ljpeg -lpng -fopenmp -lblas -llapack
 CPYTHONFLAGS=-I/usr/include/python2.7
 
-SOURCES := $(shell find . -name '*.cpp' ! -name 'deepmatching_matlab.cpp') nlopt_qsort_r.c
+SOURCES := $(shell find . -name '*.cpp' ! -name 'deepmatching_matlab.cpp') glibc_qsort_r.c
 OBJ := $(SOURCES:%.cpp=%.o)
 HEADERS := $(shell find . -name '*.h')
 
