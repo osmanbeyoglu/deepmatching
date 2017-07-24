@@ -1,7 +1,7 @@
 This is a fork of the Deep Matching algorithm from
 https://thoth.inrialpes.fr/src/deepmatching/
 
-qsort_r.c from https://github.com/stevengj/nlopt
+nlopt_qsort_r.c from https://github.com/stevengj/nlopt
 
 From the Deep Matching source
 -----------------------------
