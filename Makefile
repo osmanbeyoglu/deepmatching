@@ -1,7 +1,7 @@
 CC=g++
 
 OS_NAME=$(shell uname -s)
-ifeq ($(OS_NAME),Linux) 
+ifeq ($(OS_NAME),Linux)
   LAPACKLDFLAGS=/usr/lib64/atlas/libsatlas.so   # single-threaded blas
   #LAPACKLDFLAGS=/usr/lib64/atlas/libtatlas.so  # multi-threaded blas
   #BLAS_THREADING=-D MULTITHREADED_BLAS # remove this if wrong
@@ -12,16 +12,16 @@ endif
 LAPACKCFLAGS=-Dinteger=int $(BLAS_THREADING)
 STATICLAPACKLDFLAGS=-fPIC -Wall -g -fopenmp -static -static-libstdc++ /home/lear/douze/tmp/jpeg-6b/libjpeg.a /usr/lib64/libpng.a /usr/lib64/libz.a /usr/lib64/libblas.a /usr/lib/gcc/x86_64-redhat-linux/4.9.2/libgfortran.a /usr/lib/gcc/x86_64-redhat-linux/4.9.2/libquadmath.a # statically linked version
 
-CFLAGS= -fPIC -Wall -g -std=c++11 $(LAPACKCFLAGS) -fopenmp -DUSE_OPENMP -O3
-LDFLAGS=-fPIC -Wall -g -ljpeg -lpng -fopenmp 
+CFLAGS= -fPIC -Wall -g -std=c++11 $(LAPACKCFLAGS) -fopenmp -DUSE_OPENMP -O3 -DM_PI=3.14159265358979323846
+LDFLAGS=-fPIC -Wall -g -ljpeg -lpng -fopenmp -lblas -llapack
 CPYTHONFLAGS=-I/usr/include/python2.7
 
-SOURCES := $(shell find . -name '*.cpp' ! -name 'deepmatching_matlab.cpp')
+SOURCES := $(shell find . -name '*.cpp' ! -name 'deepmatching_matlab.cpp') nlopt_qsort_r.c
 OBJ := $(SOURCES:%.cpp=%.o)
 HEADERS := $(shell find . -name '*.h')
 
 
-all: deepmatching 
+all: deepmatching
 
 .cpp.o:  %.cpp %.h
 	$(CC) -o $@ $(CFLAGS) -c $+
@@ -35,7 +35,7 @@ deepmatching-static: $(HEADERS) $(OBJ)
 python: $(HEADERS) $(OBJ)
 #	swig -python $(CPYTHONFLAGS) deepmatching.i # not necessary, only do if you have swig compiler
 	g++ $(CFLAGS) -c deepmatching_wrap.c $(CPYTHONFLAGS)
-	g++ -shared $(LDFLAGS) $(LAPACKLDFLAGS) deepmatching_wrap.o $(OBJ) -o _deepmatching.so $(LIBFLAGS) 
+	g++ -shared $(LDFLAGS) $(LAPACKLDFLAGS) deepmatching_wrap.o $(OBJ) -o _deepmatching.so $(LIBFLAGS)
 
 clean:
 	rm -f $(OBJ) deepmatching *~ *.pyc .gdb_history deepmatching_wrap.o _deepmatching.so deepmatching.mex???
