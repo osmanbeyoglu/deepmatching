@@ -65,8 +65,8 @@ static inline bool ispowerof2( long n ) {
 
 const double INF = 1.0/0.0;
 const double NaN = 0.0/0.0;
-const int INT_MIN = 0x80000000;
-const int INT_MAX = 0x7FFFFFFF;
+//const int INT_MIN = 0x80000000;
+//const int INT_MAX = 0x7FFFFFFF;
 const float FLOAT_MIN = -1e39; // converted to -inf
 const float FLOAT_MAX = +1e39; // converted to +inf
 
@@ -91,7 +91,7 @@ void err_printf(const char* fmt, ... );
 
 
 //#include <sys/time.h>
-//inline double now() 
+//inline double now()
 //{
 //  struct timeval tv;
 //  gettimeofday (&tv,NULL);

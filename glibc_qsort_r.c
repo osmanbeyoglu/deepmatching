@@ -17,7 +17,11 @@
    Engineering a sort function; Jon Bentley and M. Douglas McIlroy;
    Software - Practice and Experience; Vol. 23 (11), 1249-1265, 1993.  */
 
-#include <alloca.h>
+#if defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__)
+  #include <malloc.h>
+#else
+  #include <alloca.h>
+#endif
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>

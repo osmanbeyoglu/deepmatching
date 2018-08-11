@@ -1,0 +1,14 @@
+project('deepmatching', '1.2-2')
+
+import cxx from 'craftr/lang/cxx'
+import {pkg_config} from 'craftr/tools/pkg-config'
+
+target('main')
+pkg_config(['openblas', 'libjpeg', 'libpng'])
+properties({
+  'cxx.srcs': glob('*.cpp', excludes=['deepmatching_matlab.cpp']) + ['glibc_qsort_r.c'],
+  'cxx.defines': ['USE_OPENMP'],
+  'cxx.enableOpenmp': True,
+  'cxx.productName': 'deepmatching$(ext)'
+})
+cxx.build()

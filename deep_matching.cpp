@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 #include "conv.h"
 #include "maxfilter.h"
 
-#ifdef __CYGWIN__
+#if defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__)
 # include "glibc_qsort_r.h"
 #endif
 
